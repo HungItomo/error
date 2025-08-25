@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Danh sách lỗi và cách khắc phục</title>
+        <style>
+            body {
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                background: #f9f9f9;
+                padding: 30px;
+                background: url("image/avatar1.jpg") no-repeat center center
+                    fixed;
+                background-size: cover; /* hình sẽ full màn hình */
+            }
+
+            h2 {
+                color: #333;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+            button {
+                margin: 5px;
+                padding: 10px 18px;
+                cursor: pointer;
+                border: none;
+                border-radius: 6px;
+                background: #007bff;
+                color: white;
+                font-size: 14px;
+                transition: all 0.3s ease;
+            }
+
+            button:hover {
+                background: #0056b3;
+                transform: scale(1.05);
+            }
+
+            button:disabled {
+                background: #aaa;
+                cursor: not-allowed;
+                transform: none;
+            }
+
+            .error-box {
+                margin-top: 15px;
+                padding: 15px;
+                border-radius: 10px;
+                background: #ffecec;
+                border: 1px solid #ff7b7b;
+                color: #b30000;
+                font-weight: 500;
+                animation: fadeSlide 0.5s ease forwards;
+            }
+
+            .fix-box {
+                margin-top: 10px;
+                padding: 12px;
+                border-radius: 8px;
+                background: #e6ffed;
+                border: 1px solid #66cc99;
+                color: #006622;
+                font-weight: 500;
+                animation: fadeSlide 0.5s ease forwards;
+            }
+
+            /* Lỗi cực kỳ lớn */
+            .error-box.big-error {
+                background: #ffcccc;
+                border: 2px solid #ff0000;
+                color: #990000;
+                font-size: 18px;
+                font-weight: bold;
+                position: relative;
+                animation: shake 0.5s ease-in-out infinite alternate;
+                padding-left: 45px; /* chừa chỗ cho icon */
+            }
+
+            .error-box.big-error::before {
+                content: "⚠️";
+                font-size: 24px;
+                position: absolute;
+                left: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            @keyframes fadeSlide {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes shake {
+                from {
+                    transform: translateX(0);
+                }
+                to {
+                    transform: translateX(5px);
+                }
+            }
+
+            /* Responsive cho mobile */
+            @media (max-width: 600px) {
+                body {
+                    padding: 15px;
+                }
+
+                h2 {
+                    font-size: 18px;
+                    color: #fff; /* màu trắng */
+                }
+
+                button {
+                    display: block;
+                    width: 100%;
+                    margin: 8px 0;
+                    font-size: 16px;
+                    padding: 12px;
+                }
+
+                .error-box {
+                    font-size: 14px;
+                    padding: 12px;
+                }
+
+                .fix-box {
+                    font-size: 14px;
+                    padding: 10px;
+                }
+
+                .error-box.big-error {
+                    font-size: 16px;
+                    padding-left: 55px;
+                }
+
+                .error-box.big-error::before {
+                    font-size: 26px;
+                    left: 15px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h2 style="color: white">📋 Danh sách lỗi sai và cách khắc phục</h2>
+
+        <!-- Nút lỗi -->
+        <div id="buttons"></div>
+
+        <!-- Nơi hiện lỗi -->
+        <div id="container"></div>
+
+        <script>
+            const errors = [
+                {
+                    message:
+                        "❌ Lỗi 1: Suy nghĩ ngắn, ích kỷ chỉ biết nghĩ cho cảm xúc của mình",
+                    fix: "✅ Giải pháp: Cần nhìn nhận vấn đề từ góc độ của người khác và đặt mình vào vị trí của họ.",
+                },
+                {
+                    message:
+                        "❌ Lỗi 2: Không kiểm soát được cảm xúc dẫn đến cách xử lý không hợp lý",
+                    fix: "✅ Giải pháp: Cần kiểm soát cảm xúc và phản ứng của bản thân trong mọi tình huống.",
+                },
+                {
+                    message:
+                        "❌ Lỗi 3: Hơn thua với em và lúc nào cũng nghĩ mình đúng",
+                    fix: "✅ Giải pháp: Luôn tôn trọng quan điểm của em.",
+                },
+                {
+                    message:
+                        "❌ Lỗi 4: Mỗi khi xảy ra chuyện thì đều làm mọi chuyện tệ hơn",
+                    fix: "✅ Giải pháp: Lắng nghe và tìm cách giải quyết cùng nhau thay vì tranh luận căng thẳng.",
+                },
+                {
+                    message: "❌ Lỗi 5: Bảo thủ, luôn đổ lỗi cho hoàn cảnh",
+                    fix: "✅ Giải pháp: Học cách lắng nghe và thay đổi bản thân để phù hợp hơn.",
+                },
+                {
+                    message:
+                        "❌ Lỗi cực kỳ lớn: Nói chia tay trong lúc tranh cãi",
+                    fix: "✅ Giải pháp: Tuyệt đối không được nói chia tay khi nóng giận, hãy bình tĩnh lắng nghe.",
+                },
+            ];
+
+            const buttonsContainer = document.getElementById("buttons");
+            errors.forEach((error, index) => {
+                const btn = document.createElement("button");
+                btn.textContent = `Lỗi ${index + 1}`;
+                btn.onclick = () => showError(index);
+                buttonsContainer.appendChild(btn);
+            });
+
+            function showError(index) {
+                const container = document.getElementById("container");
+                container.innerHTML = "";
+
+                const errorDiv = document.createElement("div");
+                errorDiv.className = "error-box";
+                errorDiv.textContent = errors[index].message;
+
+                if (index === errors.length - 1) {
+                    errorDiv.classList.add("big-error");
+                }
+
+                const fixButton = document.createElement("button");
+                fixButton.textContent = "👉 Xem cách khắc phục";
+                fixButton.onclick = function () {
+                    showFix(errorDiv, errors[index].fix);
+                    fixButton.disabled = true;
+                };
+
+                errorDiv.appendChild(document.createElement("br"));
+                errorDiv.appendChild(fixButton);
+                container.appendChild(errorDiv);
+            }
+
+            function showFix(parent, fixContent) {
+                const fixDiv = document.createElement("div");
+                fixDiv.className = "fix-box";
+                fixDiv.textContent = fixContent;
+                parent.appendChild(fixDiv);
+            }
+        </script>
+    </body>
+</html>
